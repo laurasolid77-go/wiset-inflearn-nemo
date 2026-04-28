@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page 2 | Detailed Report</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --card-bg: rgba(30, 41, 59, 0.7);
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --accent-primary: #38bdf8;
+            --accent-secondary: #818cf8;
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --gradient-1: linear-gradient(135deg, #38bdf8 0%, #818cf8 100%);
+        }
+
+        [data-theme="light"] {
+            --bg-color: #f1f5f9;
+            --card-bg: rgba(255, 255, 255, 0.7);
+            --text-primary: #1e293b;
+            --text-secondary: #64748b;
+            --accent-primary: #0284c7;
+            --accent-secondary: #4f46e5;
+            --glass-border: rgba(0, 0, 0, 0.05);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            transition: all 0.3s ease;
+            overflow-x: hidden;
+            line-height: 1.8;
+        }
+
+        .background-blob {
+            position: fixed;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, var(--accent-secondary) 0%, transparent 70%);
+            filter: blur(100px);
+            opacity: 0.1;
+            z-index: -1;
+            border-radius: 50%;
+        }
+
+        .blob-1 { top: -150px; left: -150px; }
+        .blob-2 { bottom: -150px; right: -150px; }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 4rem;
+            padding: 1rem 0;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 2rem;
+            background: var(--card-bg);
+            padding: 0.5rem 1.5rem;
+            border-radius: 2rem;
+            border: 1px solid var(--glass-border);
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: var(--text-secondary);
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link.active {
+            color: var(--accent-primary);
+        }
+
+        .theme-toggle {
+            background: var(--card-bg);
+            border: 1px solid var(--glass-border);
+            padding: 0.5rem;
+            border-radius: 50%;
+            cursor: pointer;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(10px);
+        }
+
+        .report-section {
+            background: var(--card-bg);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            padding: 3.5rem;
+            border-radius: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .report-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+
+        .report-meta {
+            display: flex;
+            gap: 2rem;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 3rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .content-block { margin-bottom: 3rem; }
+        .content-block h2 { font-size: 1.8rem; margin-bottom: 1.5rem; color: var(--accent-primary); }
+        .content-block p { margin-bottom: 1.2rem; text-align: justify; }
+
+        .highlight-box {
+            background: rgba(56, 189, 248, 0.1);
+            border-left: 4px solid var(--accent-primary);
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border-radius: 0 1rem 1rem 0;
+        }
+
+        .chart-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .analysis-img { width: 100%; border-radius: 1rem; border: 1px solid var(--glass-border); }
+
+        footer {
+            text-align: center;
+            padding: 4rem 0;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            border-top: 1px solid var(--glass-border);
+        }
+
+        @media (max-width: 768px) {
+            .report-section { padding: 2rem; }
+            .chart-grid { grid-template-columns: 1fr; }
+            header { flex-direction: column; gap: 1rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="background-blob blob-1"></div>
+    <div class="background-blob blob-2"></div>
+
+    <div class="container">
+        <header>
+            <div class="logo">
+                <i data-lucide="building-2"></i>
+                Nemo Analytics
+            </div>
+            <nav class="nav-menu">
+                <a href="index.html" class="nav-link">Page 1: 대시보드</a>
+                <a href="report.html" class="nav-link active">Page 2: 상세 리포트</a>
+            </nav>
+            <button class="theme-toggle" id="themeToggle">
+                <i data-lucide="moon" id="themeIcon"></i>
+            </button>
+        </header>
+
+        <article class="report-section" data-aos="fade-up">
+            <h1 class="report-title">심층 시장 분석 보고서 (Page 2)</h1>
+            <div class="report-meta">
+                <div><i data-lucide="user"></i> 전문 데이터 분석가</div>
+                <div><i data-lucide="calendar"></i> 2026-04-28</div>
+            </div>
+
+            <div class="content-block">
+                <h2>1. 강남권 상업 부동산의 구조적 특징</h2>
+                <p>본 보고서는 네모(Nemo) 플랫폼의 실시간 데이터를 기반으로 강남권 상업 부동산 시장의 심층적인 구조를 조명합니다. 총 673건의 매물을 분석한 결과, 가장 먼저 눈에 띄는 특징은 가격의 양극화와 고도화된 역세권 중심의 시장 형성입니다. 보증금 평균은 6,895만 원이지만 표준편차가 매우 커서, 소액 창업부터 대형 오피스 임차까지 폭넓은 스펙트럼이 존재함을 알 수 있습니다. 특히 월세 중앙값인 340만 원은 현재 강남권에서 비즈니스를 영위하기 위한 '표준 고정비'의 척도로 작동하고 있습니다.</p>
+                <p>전용면적당 가격(areaPrice)의 박스 플롯 분석을 보면, 이상치(Outliers)가 다수 관찰됩니다. 이는 동일 행정구역 내에서도 대로변 건물과 이면 도로 건물의 가치 차이가 극명하게 갈린다는 것을 의미하며, 입지의 미세한 차이가 임대료 결정의 핵심 상수임을 다시 한번 증명합니다. 특히 평당 단가가 가장 높은 구간은 강남역과 역삼역 인근의 1층 소형 매물로 나타났습니다.</p>
+                
+                <div class="chart-grid">
+                    <img src="images/03_deposit_vs_rent.png" class="analysis-img" alt="보증금 vs 월세">
+                    <img src="images/08_area_price_box.png" class="analysis-img" alt="면적당 가격">
+                </div>
+            </div>
+
+            <div class="content-block">
+                <h2>2. 업종 다변화와 공간 활용 트렌드</h2>
+                <p>업종 분석 결과, '기타업종' 및 '다용도점포'의 비중이 50%를 상회하는 현상은 시사하는 바가 큽니다. 이는 전통적인 F&B나 소매업 중심의 상권에서 벗어나, 스타트업 사무실, 개인 스튜디오, 예약제 전문 샵 등 공간의 용도가 유연하게 변화하고 있음을 보여줍니다. 특히 매물 제목의 키워드 분석(TF-IDF)을 통해 '인테리어 완비', '무권리' 등의 키워드가 최상단에 위치하는 것을 볼 수 있는데, 이는 현재 시장 참여자들이 '초기 리스크 최소화'와 '즉시 가용성'을 가장 중요한 가치로 여기고 있음을 나타냅니다.</p>
+                <div class="highlight-box">
+                    <strong>인사이트:</strong> 단순한 위치의 승리가 아닌, 공간에 담긴 '콘텐츠'와 '즉각적인 활용성'이 임대차 계약 성사 여부를 결정짓는 핵심 변수로 부상하고 있습니다.
+                </div>
+                <div class="chart-grid">
+                    <img src="images/04_business_middle_freq.png" class="analysis-img" alt="업종 빈도">
+                    <img src="images/11_title_tfidf.png" class="analysis-img" alt="키워드 분석">
+                </div>
+            </div>
+
+            <div class="content-block">
+                <h2>3. 위치 및 층별 분석을 통한 전략 도출</h2>
+                <p>지하철역과의 거리는 여전히 임대료의 1차적인 결정 요인입니다. 강남역, 역삼역 인근 도보 5분 내 매물의 밀집도가 가장 높으며, 이 지역은 평당 단가와 회전율 모두에서 최상위권을 유지하고 있습니다. 층별 분석에서는 1층의 프리미엄이 압도적이지만, 지하층 매물의 경우 평균 임대료가 낮게 형성되면서도 층고가 높거나 단독 계단이 있는 경우 특수 업종(스튜디오, 헬스 등)에서 높은 인기를 끌고 있습니다. 이러한 데이터는 임차인에게는 '가성비 있는 지하층 특화 공간'을, 임대인에게는 '공간의 테마화'라는 전략적 방향을 제시합니다.</p>
+                <div class="chart-grid">
+                    <img src="images/07_subway_dist.png" class="analysis-img" alt="지하철 분포">
+                    <img src="images/05_floor_vs_rent.png" class="analysis-img" alt="층수별 월세">
+                </div>
+            </div>
+
+            <div class="content-block">
+                <h2>4. 결론 및 향후 전망</h2>
+                <p>강남권 상업 부동산 시장은 현재 '효율적 고도화' 단계에 진입해 있습니다. 고정비 부담을 줄이기 위한 소형화 추세가 이어지면서도, 입지적 강점이 있는 곳은 여전히 견고한 가격을 유지할 것으로 보입니다. 향후 성공적인 임차 및 투자를 위해서는 데이터가 가리키는 '실속형 매물(무권리/인테리어 승계)'과 '초역세권 소형 오피스'의 가치에 주목해야 합니다. 본 분석 데이터가 사용자님의 성공적인 의사결정에 강력한 지표가 되기를 바랍니다.</p>
+            </div>
+        </article>
+
+        <footer>
+            <p>&copy; 2026 Nemo Analytics. All rights reserved. | <a href="index.html" style="color: var(--accent-primary);">Back to Page 1</a></p>
+        </footer>
+    </div>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        lucide.createIcons();
+        AOS.init({ once: true, duration: 1000 });
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = document.getElementById('themeIcon');
+        const body = document.body;
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = body.getAttribute('data-theme');
+            if (currentTheme === 'light') {
+                body.removeAttribute('data-theme');
+                themeIcon.setAttribute('data-lucide', 'moon');
+            } else {
+                body.setAttribute('data-theme', 'light');
+                themeIcon.setAttribute('data-lucide', 'sun');
+            }
+            lucide.createIcons();
+        });
+    </script>
+</body>
+</html>
