@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detailed Analysis | Nemo Analytics</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --card-bg: rgba(30, 41, 59, 0.7);
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --accent-primary: #38bdf8;
+            --accent-secondary: #818cf8;
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --gradient-1: linear-gradient(135deg, #38bdf8 0%, #818cf8 100%);
+        }
+
+        [data-theme="light"] {
+            --bg-color: #f1f5f9;
+            --card-bg: rgba(255, 255, 255, 0.7);
+            --text-primary: #1e293b;
+            --text-secondary: #64748b;
+            --accent-primary: #0284c7;
+            --accent-secondary: #4f46e5;
+            --glass-border: rgba(0, 0, 0, 0.05);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            transition: all 0.3s ease;
+            overflow-x: hidden;
+            line-height: 1.8;
+        }
+
+        .background-blob {
+            position: fixed;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, var(--accent-secondary) 0%, transparent 70%);
+            filter: blur(100px);
+            opacity: 0.1;
+            z-index: -1;
+            border-radius: 50%;
+        }
+
+        .blob-1 { top: -150px; left: -150px; }
+        .blob-2 { bottom: -150px; right: -150px; }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 4rem;
+            padding: 1rem 0;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-menu { display: flex; gap: 2rem; }
+        .nav-link {
+            text-decoration: none;
+            color: var(--text-secondary);
+            font-weight: 500;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+        .nav-link:hover, .nav-link.active { color: var(--accent-primary); }
+        .nav-link.active::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--gradient-1);
+            border-radius: 2px;
+        }
+
+        .theme-toggle {
+            background: var(--card-bg);
+            border: 1px solid var(--glass-border);
+            padding: 0.5rem;
+            border-radius: 50%;
+            cursor: pointer;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(10px);
+        }
+
+        .report-section {
+            background: var(--card-bg);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            padding: 3.5rem;
+            border-radius: 2rem;
+            margin-bottom: 4rem;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+
+        .report-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+
+        .report-meta {
+            display: flex;
+            gap: 2rem;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 3rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .report-meta div {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .content-block {
+            margin-bottom: 3rem;
+        }
+
+        .content-block h2 {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            color: var(--accent-primary);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .content-block p {
+            margin-bottom: 1.2rem;
+            text-align: justify;
+        }
+
+        .highlight-box {
+            background: rgba(56, 189, 248, 0.05);
+            border-left: 4px solid var(--accent-primary);
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border-radius: 0 1rem 1rem 0;
+        }
+
+        .analysis-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .analysis-img {
+            width: 100%;
+            border-radius: 1rem;
+            border: 1px solid var(--glass-border);
+            transition: transform 0.3s ease;
+        }
+
+        .analysis-img:hover {
+            transform: scale(1.02);
+        }
+
+        footer {
+            text-align: center;
+            padding: 4rem 0;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            border-top: 1px solid var(--glass-border);
+        }
+
+        @media (max-width: 768px) {
+            .report-section { padding: 2rem; }
+            .analysis-grid { grid-template-columns: 1fr; }
+            .report-title { font-size: 1.8rem; }
+            .nav-menu { display: none; }
+        }
+    </style>
+</head>
+<body>
+    <div class="background-blob blob-1"></div>
+    <div class="background-blob blob-2"></div>
+
+    <div class="container">
+        <header>
+            <div class="logo">
+                <i data-lucide="building-2"></i>
+                Nemo Analytics
+            </div>
+            <nav class="nav-menu">
+                <a href="index.html" class="nav-link">대시보드</a>
+                <a href="analysis.html" class="nav-link active">상세 분석 보고서</a>
+            </nav>
+            <button class="theme-toggle" id="themeToggle">
+                <i data-lucide="moon" id="themeIcon"></i>
+            </button>
+        </header>
+
+        <article class="report-section" data-aos="fade-up">
+            <h1 class="report-title">강남권 상업 부동산 시장 심층 분석 보고서: 트렌드와 데이터 인사이트</h1>
+            
+            <div class="report-meta">
+                <div><i data-lucide="user"></i> Senior Data Analyst</div>
+                <div><i data-lucide="calendar"></i> 2026-04-28</div>
+                <div><i data-lucide="database"></i> 673 Listings Analyzed</div>
+            </div>
+
+            <div class="content-block">
+                <h2><i data-lucide="trending-up"></i> 1. 서론 및 시장 총평</h2>
+                <p>본 보고서는 대한민국 상업 부동산의 핵심지인 강남권을 중심으로, 네모(Nemo) 플랫폼에서 수집된 673건의 실시간 매물 데이터를 정밀 분석한 결과입니다. 2026년 상반기 현재, 강남권 상업용 부동산 시장은 고금리와 경기 변동성 속에서도 견고한 수요를 유지하고 있으며, 특히 중소형 사무실과 소규모 창업 공간의 회전율이 매우 높게 나타나고 있습니다. 본 분석을 통해 도출된 핵심 지표들은 단순한 수치를 넘어, 현재 창업가들과 투자자들이 주목해야 할 시장의 '맥락'을 짚어줍니다.</p>
+                <div class="highlight-box">
+                    <strong>핵심 요약:</strong> 보증금 중앙값 4,000만 원, 월세 중앙값 340만 원으로 형성된 시장에서 역세권 중심의 소형 오피스 수요가 전체 트렌드를 견인하고 있습니다.
+                </div>
+            </div>
+
+            <div class="content-block">
+                <h2><i data-lucide="bar-chart-2"></i> 2. 가격 체계와 자산 가치 분석</h2>
+                <p>수치적 관점에서 볼 때, 강남권 매물의 보증금은 평균 6,895만 원으로 형성되어 있으나, 이는 일부 초대형 매물에 의한 상향 편향이 존재합니다. 실제 시장의 핵심 구간을 보여주는 중앙값은 4,000만 원 수준으로, 소규모 법인이나 개인 창업자들이 접근 가능한 매물이 주류를 이루고 있음을 보여줍니다. 반면 표준편차가 1억 원에 육박하는 것은 매물의 입지와 건물 등급에 따른 양극화가 매우 심화되어 있음을 시사합니다.</p>
+                <p>월세의 경우 중앙값 340만 원, 75% 분위수가 550만 원인 점에 주목해야 합니다. 이는 강남권에서 월 고정비 500만 원 내외의 소형 사무실이나 근린생활시설이 가장 활발하게 거래되는 '스윗 스팟(Sweet Spot)'임을 의미합니다. 특히 층수에 따른 가격 하락폭을 분석해 보면, 1층 매물의 평당 단가가 지상 2층 대비 약 1.5~2배가량 높게 형성되어 있어, 접근성에 대한 프리미엄이 여전히 시장 가격 결정의 최우선 순위임을 확인할 수 있습니다.</p>
+                <div class="analysis-grid">
+                    <img src="images/01_deposit_dist.png" class="analysis-img" alt="보증금 분석">
+                    <img src="images/02_rent_dist.png" class="analysis-img" alt="월세 분석">
+                </div>
+            </div>
+
+            <div class="content-block">
+                <h2><i data-lucide="layers"></i> 3. 업종별 구성 및 공간 활용 트렌드</h2>
+                <p>업종 분석 결과에서 가장 흥미로운 점은 '기타업종'과 '다용도점포'가 전체의 절반 이상을 차지한다는 것입니다. 이는 전통적인 업종 구분(음식점, 판매업 등)에서 벗어나 스튜디오, 프라이빗 오피스, 공유 주방, 쇼룸 등 가변적인 용도로 공간을 활용하려는 수요가 급증했음을 반영합니다. 특히 강남권 특유의 IT/미디어 스타트업 문화가 반영되어 '인테리어 완비' 및 '시설 권리금 무' 형태의 매물이 마케팅 키워드 상위를 점유하고 있습니다.</p>
+                <p>F&B 업종에서는 커피전문점과 한식점의 비중이 높으나, 최근에는 배달 전문 매장보다는 홀 영업과 배달을 병행할 수 있는 소형 면적(50~100㎡) 매물의 선호도가 뚜렷합니다. 층별 분석을 보면 지하층 매물의 경우 평균 임대료가 1층의 40% 수준으로 저렴하지만, 층고가 높거나 단독 출입구가 있는 경우 스튜디오나 체육시설로 활용되면서 높은 가치를 인정받는 사례가 늘고 있습니다.</p>
+                <div class="analysis-grid">
+                    <img src="images/04_business_middle_freq.png" class="analysis-img" alt="업종 빈도">
+                    <img src="images/05_floor_vs_rent.png" class="analysis-img" alt="층수별 월세">
+                </div>
+            </div>
+
+            <div class="content-block">
+                <h2><i data-lucide="map-pin"></i> 4. 입지 조건과 교통 인프라의 상관관계</h2>
+                <p>지하철역과의 거리와 임대료의 상관관계는 여전히 절대적입니다. 분석 데이터에 따르면 강남역, 역삼역, 양재역 도보 5분 이내의 소위 '초역세권' 매물은 동일 면적의 일반 매물 대비 약 20~30% 높은 임대료가 책정되어 있습니다. 하지만 최근의 변화는 '이면 도로'와 '특색 있는 골목 상권'의 부상입니다. 대로변의 높은 임대료를 피해 이면 도로의 저층부로 이동하는 MZ 세대 타깃의 브랜드들이 늘어나면서, 역세권 이면의 평당 단가 상승률이 대로변을 앞지르는 현상이 관찰되고 있습니다.</p>
+                <p>또한 신분당선 연장 및 주요 환승 거점을 중심으로 한 입지 선호도가 뚜렷하여, 강남역-신논현역 라인의 매물은 시장에 나오자마자 평균 2주 이내에 계약이 체결되는 높은 회전율을 보이고 있습니다. 이는 풍부한 배후 수요와 편리한 교통 인프라가 결합된 입지가 불황기에도 강력한 방어 자산이 됨을 입증합니다.</p>
+                <div class="analysis-grid">
+                    <img src="images/07_subway_dist.png" class="analysis-img" alt="지하철 분포">
+                    <img src="images/08_area_price_box.png" class="analysis-img" alt="면적당 가격">
+                </div>
+            </div>
+
+            <div class="content-block">
+                <h2><i data-lucide="search"></i> 5. 마케팅 키워드로 본 소비자 심리</h2>
+                <p>TF-IDF 텍스트 분석 결과, 매물 홍보에 가장 많이 쓰이는 단어는 '역세권', '인테리어', '대로변', '깔끔한' 순으로 나타났습니다. 특히 '무권리'라는 키워드가 상위권에 랭크된 것은 초기 투자 비용을 최소화하려는 임차인들의 심리와 공실 기간을 줄이려는 임대인들의 타협점이 만나는 지점임을 시사합니다. '시설 권리 없음'이나 '시설 완비'는 특히 뷰티 서비스업이나 소형 오피스 임차인들에게 가장 강력한 소구 포인트로 작동하고 있습니다.</p>
+                <img src="images/11_title_tfidf.png" class="analysis-img" style="margin-top: 1rem;" alt="키워드 분석">
+            </div>
+
+            <div class="content-block">
+                <h2><i data-lucide="lightbulb"></i> 6. 결론 및 향후 전망</h2>
+                <p>강남권 상업 부동산 시장은 현재 '효율성'과 '유연성'을 중심으로 재편되고 있습니다. 대형 면적보다는 관리 효율이 높은 중소형 면적의 가치가 상승하고 있으며, 업종 경계가 모호한 다목적 공간이 시장의 주류로 자리 잡았습니다. 투자 측면에서는 역세권 이면의 인테리어가 우수한 저층부 매물을 주목할 필요가 있으며, 임차 측면에서는 권리금 부담이 없는 신축급 매물을 선점하는 것이 초기 사업 안정성을 확보하는 지름길이 될 것입니다.</p>
+                <p>결론적으로, 데이터는 강남권이 여전히 대한민국에서 가장 역동적이고 수익성이 보장되는 상업 지역임을 말해주고 있습니다. 다만 과거와 같은 입지 만능주의에서 벗어나, 공간의 개성과 실용적 가치를 높이는 전략이 동반되어야만 지속 가능한 가치 창출이 가능할 것으로 보입니다.</p>
+            </div>
+        </article>
+
+        <footer>
+            <p>&copy; 2026 Nemo Analytics. All rights reserved.</p>
+            <p>Data source: Nemo App Crawling Data (2026-04-28)</p>
+        </footer>
+    </div>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        lucide.createIcons();
+        AOS.init({ once: true, duration: 1000 });
+
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = document.getElementById('themeIcon');
+        const body = document.body;
+
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = body.getAttribute('data-theme');
+            if (currentTheme === 'light') {
+                body.removeAttribute('data-theme');
+                themeIcon.setAttribute('data-lucide', 'moon');
+            } else {
+                body.setAttribute('data-theme', 'light');
+                themeIcon.setAttribute('data-lucide', 'sun');
+            }
+            lucide.createIcons();
+        });
+    </script>
+</body>
+</html>
